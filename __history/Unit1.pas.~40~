@@ -1,0 +1,140 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+const
+  BytePosition = 32770;
+
+type
+  TForm1 = class(TForm)
+    btnSelectFile: TButton;
+    btnChangeByte: TButton;
+    OpenDialog: TOpenDialog;
+    edtNewByte: TEdit;
+    lblSelectedFile: TLabel;
+    procedure btnSelectFileClick(Sender: TObject);
+    procedure btnChangeByteClick(Sender: TObject);
+  private
+    { Private declarations }
+    SelectedFileName: string;
+    procedure ChangeBytesInFile(const FileName: string; BytePosition: Int64; NewWord: Word; NewWordText: string);
+    procedure ReadBytesFromFile(const FileName: string; BytePosition: Int64; var WordValue: Word);
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.btnSelectFileClick(Sender: TObject);
+var
+  ReadWord: Word;
+begin
+  if OpenDialog.Execute then
+  begin
+    SelectedFileName := OpenDialog.FileName;
+    lblSelectedFile.Caption := 'Выбранный файл: ' + SelectedFileName;
+    ReadBytesFromFile(SelectedFileName, BytePosition, ReadWord);
+    edtNewByte.Text := IntToStr(ReadWord);
+  end;
+end;
+
+procedure TForm1.btnChangeByteClick(Sender: TObject);
+var
+  NewWordInt: Integer;
+  NewWord: Word;
+begin
+  if SelectedFileName = '' then
+  begin
+    ShowMessage('Пожалуйста, сначала выберите файл.');
+    Exit;
+  end;
+
+  if not TryStrToInt(edtNewByte.Text, NewWordInt) or (NewWordInt < 0) or (NewWordInt > 65535) then
+  begin
+    ShowMessage('Неверное значение. Должно быть от 0 до 65535.');
+    Exit;
+  end;
+
+  NewWord := Word(NewWordInt);
+  ChangeBytesInFile(SelectedFileName, BytePosition, NewWord, edtNewByte.Text);
+  ShowMessage('ID успешно изменен.');
+end;
+
+procedure TForm1.ChangeBytesInFile(const FileName: string; BytePosition: Int64; NewWord: Word; NewWordText: string);
+var
+  FileStream: TFileStream;
+  BaseFileName, FileExt, BeforeNumber, AfterNumber: string;
+  UnderscoreCount, UnderscoreIndex, i: Integer;
+  NewFileName: string;
+begin
+  FileStream := TFileStream.Create(FileName, fmOpenReadWrite);
+  try
+    FileStream.Seek(BytePosition, soBeginning);
+    FileStream.WriteBuffer(NewWord, SizeOf(NewWord));
+  finally
+    FileStream.Free;
+  end;
+
+  // Изменение имени файла
+  BaseFileName := ExtractFileName(FileName);
+  FileExt := ExtractFileExt(FileName);
+  NewFileName := '';
+
+  UnderscoreCount := 0;
+  UnderscoreIndex := 0;
+
+  // Подсчет количества подчеркиваний и поиск второго подчеркивания
+  for i := 1 to Length(BaseFileName) do
+  begin
+    if BaseFileName[i] = '_' then
+    begin
+      Inc(UnderscoreCount);
+      if UnderscoreCount = 2 then
+      begin
+        UnderscoreIndex := i;
+        Break;
+      end;
+    end;
+  end;
+
+  // Если найдено второе подчеркивание, изменить имя файла
+  if UnderscoreCount >= 2 then
+  begin
+    // Определение частей имени файла перед и после числа
+    BeforeNumber := Copy(BaseFileName, 1, UnderscoreIndex);
+    AfterNumber := Copy(BaseFileName, UnderscoreIndex + 4, Length(BaseFileName) - UnderscoreIndex - 5);
+
+    // Формирование нового имени файла с учетом числа после второго подчеркивания из компонента edtNewByte
+    NewFileName := BeforeNumber + NewWordText + AfterNumber;
+
+    // Переименование файла
+    RenameFile(FileName, ExtractFilePath(FileName) + NewFileName);
+  end;
+end;
+
+
+
+procedure TForm1.ReadBytesFromFile(const FileName: string; BytePosition: Int64; var WordValue: Word);
+var
+  FileStream: TFileStream;
+begin
+  FileStream := TFileStream.Create(FileName, fmOpenRead);
+  try
+    FileStream.Seek(BytePosition, soBeginning);
+    FileStream.ReadBuffer(WordValue, SizeOf(WordValue));
+  finally
+    FileStream.Free;
+  end;
+end;
+
+end.
+

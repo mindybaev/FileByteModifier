@@ -134,9 +134,6 @@ var
   NewWord: Word;
   NewWordText: string;
   FileStream: TFileStream;
-  ByteValue: Byte;
-  i: Integer;
-  SpinEditControls: array[1..20] of TSpinEdit;
 begin
   if SelectedFileName = '' then
   begin
@@ -156,22 +153,6 @@ begin
 
   NewWord := Word(NewWordInt);
   ChangeBytesInFile(SelectedFileName, BytePosition, NewWord, NewWordText);
-  //
-  for i := 1 to 20 do
-    SpinEditControls[i] := TSpinEdit(FindComponent('SpinEdit' + IntToStr(i)));
-
-  FileStream := TFileStream.Create(SelectedFileName, fmOpenReadWrite);
-  try
-    for i := 0 to 19 do
-    begin
-      ByteValue := StrToIntDef(SpinEditControls[i + 1].Text, 0);
-      FileStream.Seek(BytePositionSwitchPower + i, soBeginning);
-      FileStream.WriteBuffer(ByteValue, SizeOf(ByteValue));
-    end;
-  finally
-    FileStream.Free;
-  end;
-  //
   ShowMessage('ID успешно изменен.');
 end;
 
@@ -181,6 +162,8 @@ var
   FileStream, NewFileStream: TFileStream;
   BaseFileName, FileExt, NewFileName, BeforeNumber, AfterNumber: string;
   Buffer: TBytes;
+  ByteValue: Byte;
+  SpinEditControls: array[1..20] of TSpinEdit;
 begin
   FileStream := TFileStream.Create(FileName, fmOpenRead);
   try
@@ -198,6 +181,17 @@ begin
   NewFileStream := TFileStream.Create(NewFileName, fmCreate);
   try
     NewFileStream.WriteBuffer(Buffer[0], Length(Buffer));
+        //
+   for i := 1 to 20 do
+    SpinEditControls[i] := TSpinEdit(FindComponent('SpinEdit' + IntToStr(i)));
+
+    for i := 0 to 19 do
+    begin
+      ByteValue := StrToIntDef(SpinEditControls[i + 1].Text, 0);
+      NewFileStream.Seek(BytePositionSwitchPower + i, soBeginning);
+      NewFileStream.WriteBuffer(ByteValue, SizeOf(ByteValue));
+    end;
+  //
   finally
     NewFileStream.Free;
   end;

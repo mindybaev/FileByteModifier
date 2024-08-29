@@ -107,8 +107,8 @@ object Form1: TForm1
     Top = 104
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 7
     Value = 0
   end
@@ -127,8 +127,8 @@ object Form1: TForm1
     Top = 134
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 9
     Value = 0
   end
@@ -147,8 +147,8 @@ object Form1: TForm1
     Top = 164
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 11
     Value = 0
   end
@@ -167,8 +167,8 @@ object Form1: TForm1
     Top = 194
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 13
     Value = 0
   end
@@ -187,8 +187,8 @@ object Form1: TForm1
     Top = 224
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 15
     Value = 0
   end
@@ -207,8 +207,8 @@ object Form1: TForm1
     Top = 254
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 17
     Value = 0
   end
@@ -227,8 +227,8 @@ object Form1: TForm1
     Top = 284
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 19
     Value = 0
   end
@@ -247,8 +247,8 @@ object Form1: TForm1
     Top = 314
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 21
     Value = 0
   end
@@ -267,8 +267,8 @@ object Form1: TForm1
     Top = 344
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 23
     Value = 0
   end
@@ -287,8 +287,8 @@ object Form1: TForm1
     Top = 374
     Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 25
     Value = 0
   end
