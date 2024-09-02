@@ -1,9 +1,9 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = #1048#1079#1084#1077#1085#1077#1085#1080#1077' ID'
-  ClientHeight = 516
-  ClientWidth = 732
+  Caption = #1052#1086#1076#1080#1092#1080#1082#1072#1094#1080#1103' '#1092#1072#1081#1083#1072
+  ClientHeight = 585
+  ClientWidth = 684
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnCreate = FormCreate
   TextHeight = 15
   object lblSelectedFile: TLabel
     Left = 8
@@ -39,6 +40,17 @@ object Form1: TForm1
     Width = 13
     Height = 15
     Caption = #1076#1086
+  end
+  object PageControl1: TPageControl
+    Left = 8
+    Top = 89
+    Width = 161
+    Height = 345
+    ActivePage = TabSheet1
+    TabOrder = 26
+    object TabSheet1: TTabSheet
+      Caption = '                               '
+    end
   end
   object btnSelectFile: TButton
     Left = 8
@@ -93,204 +105,191 @@ object Form1: TForm1
     Text = '0'
   end
   object SpinEdit1: TSpinEdit
-    Left = 8
-    Top = 104
-    Width = 41
+    Left = 101
+    Top = 120
+    Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 6
-    Value = 0
+    Value = 37
   end
   object SpinEdit2: TSpinEdit
-    Left = 63
-    Top = 104
+    Left = 101
+    Top = 150
     Width = 42
     Height = 24
     MaxValue = 48
     MinValue = 37
     TabOrder = 7
-    Value = 0
+    Value = 37
   end
   object SpinEdit3: TSpinEdit
-    Left = 8
-    Top = 134
-    Width = 41
+    Left = 101
+    Top = 180
+    Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 8
-    Value = 0
+    Value = 37
   end
   object SpinEdit4: TSpinEdit
-    Left = 63
-    Top = 134
+    Left = 101
+    Top = 210
     Width = 42
     Height = 24
     MaxValue = 48
     MinValue = 37
     TabOrder = 9
-    Value = 0
+    Value = 37
   end
   object SpinEdit5: TSpinEdit
-    Left = 8
-    Top = 164
-    Width = 41
+    Left = 101
+    Top = 240
+    Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 10
-    Value = 0
+    Value = 37
   end
   object SpinEdit6: TSpinEdit
-    Left = 63
-    Top = 164
+    Left = 101
+    Top = 270
     Width = 42
     Height = 24
     MaxValue = 48
     MinValue = 37
     TabOrder = 11
-    Value = 0
+    Value = 37
   end
   object SpinEdit7: TSpinEdit
-    Left = 8
-    Top = 194
-    Width = 41
+    Left = 101
+    Top = 300
+    Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 12
-    Value = 0
+    Value = 37
   end
   object SpinEdit8: TSpinEdit
-    Left = 63
-    Top = 194
+    Left = 101
+    Top = 330
     Width = 42
     Height = 24
     MaxValue = 48
     MinValue = 37
     TabOrder = 13
-    Value = 0
+    Value = 37
   end
   object SpinEdit9: TSpinEdit
-    Left = 8
-    Top = 224
-    Width = 41
+    Left = 101
+    Top = 360
+    Width = 42
     Height = 24
-    MaxValue = 0
-    MinValue = 0
+    MaxValue = 48
+    MinValue = 37
     TabOrder = 14
-    Value = 0
+    Value = 37
+  end
+  object CheckBox1: TCheckBox
+    Left = 26
+    Top = 123
+    Width = 57
+    Height = 17
+    TabOrder = 15
+  end
+  object CheckBox2: TCheckBox
+    Left = 26
+    Top = 154
+    Width = 57
+    Height = 17
+    TabOrder = 16
+  end
+  object CheckBox3: TCheckBox
+    Left = 26
+    Top = 183
+    Width = 57
+    Height = 17
+    TabOrder = 17
+  end
+  object CheckBox4: TCheckBox
+    Left = 26
+    Top = 213
+    Width = 57
+    Height = 17
+    TabOrder = 18
+  end
+  object CheckBox5: TCheckBox
+    Left = 26
+    Top = 243
+    Width = 57
+    Height = 17
+    TabOrder = 19
+  end
+  object CheckBox6: TCheckBox
+    Left = 26
+    Top = 273
+    Width = 57
+    Height = 17
+    TabOrder = 20
+  end
+  object CheckBox7: TCheckBox
+    Left = 26
+    Top = 303
+    Width = 57
+    Height = 17
+    TabOrder = 21
+  end
+  object CheckBox8: TCheckBox
+    Left = 26
+    Top = 333
+    Width = 57
+    Height = 17
+    TabOrder = 22
+  end
+  object CheckBox9: TCheckBox
+    Left = 26
+    Top = 363
+    Width = 57
+    Height = 17
+    TabOrder = 23
+  end
+  object CheckBox10: TCheckBox
+    Left = 26
+    Top = 393
+    Width = 57
+    Height = 17
+    TabOrder = 24
   end
   object SpinEdit10: TSpinEdit
-    Left = 63
-    Top = 224
-    Width = 42
-    Height = 24
-    MaxValue = 48
-    MinValue = 37
-    TabOrder = 15
-    Value = 0
-  end
-  object SpinEdit11: TSpinEdit
-    Left = 8
-    Top = 254
-    Width = 41
-    Height = 24
-    MaxValue = 0
-    MinValue = 0
-    TabOrder = 16
-    Value = 0
-  end
-  object SpinEdit12: TSpinEdit
-    Left = 63
-    Top = 254
-    Width = 42
-    Height = 24
-    MaxValue = 48
-    MinValue = 37
-    TabOrder = 17
-    Value = 0
-  end
-  object SpinEdit13: TSpinEdit
-    Left = 8
-    Top = 284
-    Width = 41
-    Height = 24
-    MaxValue = 0
-    MinValue = 0
-    TabOrder = 18
-    Value = 0
-  end
-  object SpinEdit14: TSpinEdit
-    Left = 63
-    Top = 284
-    Width = 42
-    Height = 24
-    MaxValue = 48
-    MinValue = 37
-    TabOrder = 19
-    Value = 0
-  end
-  object SpinEdit15: TSpinEdit
-    Left = 8
-    Top = 314
-    Width = 41
-    Height = 24
-    MaxValue = 0
-    MinValue = 0
-    TabOrder = 20
-    Value = 0
-  end
-  object SpinEdit16: TSpinEdit
-    Left = 63
-    Top = 314
-    Width = 42
-    Height = 24
-    MaxValue = 48
-    MinValue = 37
-    TabOrder = 21
-    Value = 0
-  end
-  object SpinEdit17: TSpinEdit
-    Left = 8
-    Top = 344
-    Width = 41
-    Height = 24
-    MaxValue = 0
-    MinValue = 0
-    TabOrder = 22
-    Value = 0
-  end
-  object SpinEdit18: TSpinEdit
-    Left = 63
-    Top = 344
-    Width = 42
-    Height = 24
-    MaxValue = 48
-    MinValue = 37
-    TabOrder = 23
-    Value = 0
-  end
-  object SpinEdit19: TSpinEdit
-    Left = 8
-    Top = 374
-    Width = 41
-    Height = 24
-    MaxValue = 0
-    MinValue = 0
-    TabOrder = 24
-    Value = 0
-  end
-  object SpinEdit20: TSpinEdit
-    Left = 63
-    Top = 374
+    Left = 101
+    Top = 390
     Width = 42
     Height = 24
     MaxValue = 48
     MinValue = 37
     TabOrder = 25
-    Value = 0
+    Value = 37
+  end
+  object CheckBoxActive: TCheckBox
+    Left = 17
+    Top = 92
+    Width = 89
+    Height = 17
+    TabOrder = 27
+    OnClick = CheckBoxActiveClick
+  end
+  object Memo1: TMemo
+    Left = 0
+    Top = 519
+    Width = 684
+    Height = 66
+    Align = alBottom
+    ScrollBars = ssVertical
+    TabOrder = 28
   end
   object OpenDialog: TOpenDialog
     Filter = '*.bin'

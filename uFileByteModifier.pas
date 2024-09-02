@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Samples.Spin;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Samples.Spin,
+  Vcl.ComCtrls;
 
 const
   BytePosition = 36866;//32770;
@@ -32,22 +33,28 @@ type
     SpinEdit7: TSpinEdit;
     SpinEdit8: TSpinEdit;
     SpinEdit9: TSpinEdit;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    CheckBox4: TCheckBox;
+    CheckBox5: TCheckBox;
+    CheckBox6: TCheckBox;
+    CheckBox7: TCheckBox;
+    CheckBox8: TCheckBox;
+    CheckBox9: TCheckBox;
+    CheckBox10: TCheckBox;
     SpinEdit10: TSpinEdit;
-    SpinEdit11: TSpinEdit;
-    SpinEdit12: TSpinEdit;
-    SpinEdit13: TSpinEdit;
-    SpinEdit14: TSpinEdit;
-    SpinEdit15: TSpinEdit;
-    SpinEdit16: TSpinEdit;
-    SpinEdit17: TSpinEdit;
-    SpinEdit18: TSpinEdit;
-    SpinEdit19: TSpinEdit;
-    SpinEdit20: TSpinEdit;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    CheckBoxActive: TCheckBox;
+    Memo1: TMemo;
     procedure btnSelectFileClick(Sender: TObject);
     procedure btnChangeByteClick(Sender: TObject);
     procedure edtNewByteChange(Sender: TObject);
     procedure edtNewByteKeyPress(Sender: TObject; var Key: Char);
     procedure btnCreateFilesInRangeClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure CheckBoxActiveClick(Sender: TObject);
   private
     { Private declarations }
     SelectedFileName: string;
@@ -55,12 +62,15 @@ type
     procedure ReadBytesFromFile(const FileName: string; BytePosition: Int64; var WordValue: Word);
     procedure CreateFilesInRange(const FileName: string; StartID, EndID: Word);
     procedure ReadBytesFromFileToEdits(const FileName: string; StartBytePosition: Int64);
+    procedure CheckBoxClick(Sender: TObject);
   public
     { Public declarations }
   end;
 
 var
   Form1: TForm1;
+  CheckBoxControls: array[1..10] of TCheckBox;
+  SpinEditControls: array[1..10] of TSpinEdit;
 
 implementation
 
@@ -76,14 +86,14 @@ begin
     NewWordText := IntToStr(i);
     while Length(NewWordText) < 3 do
       NewWordText := '0' + NewWordText;
-
-    ChangeBytesInFile(FileName, BytePosition, i, NewWordText);
+      ChangeBytesInFile(FileName, BytePosition, i, NewWordText);
   end;
 end;
 
 procedure TForm1.btnCreateFilesInRangeClick(Sender: TObject);
 var
   StartID, EndID: Integer;
+  LogMessage: String;
 begin
   if SelectedFileName = '' then
   begin
@@ -110,8 +120,6 @@ begin
   end;
 
   CreateFilesInRange(SelectedFileName, Word(StartID), Word(EndID));
-  ShowMessage('Файлы успешно созданы.');
-
 end;
 
 procedure TForm1.btnSelectFileClick(Sender: TObject);
@@ -133,7 +141,6 @@ var
   NewWordInt: Integer;
   NewWord: Word;
   NewWordText: string;
-  FileStream: TFileStream;
 begin
   if SelectedFileName = '' then
   begin
@@ -153,17 +160,15 @@ begin
 
   NewWord := Word(NewWordInt);
   ChangeBytesInFile(SelectedFileName, BytePosition, NewWord, NewWordText);
-  ShowMessage('ID успешно изменен.');
 end;
 
 procedure TForm1.ChangeBytesInFile(const FileName: string; BytePosition: Int64; NewWord: Word; NewWordText: string);
 var
-  UnderscoreIndex, i: Integer;
+  i: Integer;
   FileStream, NewFileStream: TFileStream;
   BaseFileName, FileExt, NewFileName, BeforeNumber, AfterNumber: string;
   Buffer: TBytes;
   ByteValue: Byte;
-  SpinEditControls: array[1..20] of TSpinEdit;
 begin
   FileStream := TFileStream.Create(FileName, fmOpenRead);
   try
@@ -172,30 +177,49 @@ begin
   finally
     FileStream.Free;
   end;
+
   Move(NewWord, Buffer[BytePosition], SizeOf(NewWord));
+
   BaseFileName := ChangeFileExt(ExtractFileName(FileName), '');
   FileExt := ExtractFileExt(FileName);
   BeforeNumber := Copy(BaseFileName, 1, LastDelimiter('_', BaseFileName));
   AfterNumber := Copy(BaseFileName, LastDelimiter('_', BaseFileName) + 4, Length(BaseFileName));
-  NewFileName := ExtractFilePath(FileName) + BeforeNumber + NewWordText + AfterNumber + FileExt;
+
+  if CheckBoxActive.Checked then
+    NewFileName := ExtractFilePath(FileName) + BeforeNumber + NewWordText + '+' + AfterNumber + FileExt
+  else
+    NewFileName := ExtractFilePath(FileName) + BeforeNumber + NewWordText + AfterNumber + FileExt;
+
   NewFileStream := TFileStream.Create(NewFileName, fmCreate);
+
   try
     NewFileStream.WriteBuffer(Buffer[0], Length(Buffer));
-        //
-   for i := 1 to 20 do
-    SpinEditControls[i] := TSpinEdit(FindComponent('SpinEdit' + IntToStr(i)));
 
-    for i := 0 to 19 do
+    for i := 1 to 10 do
     begin
-      ByteValue := StrToIntDef(SpinEditControls[i + 1].Text, 0);
-      NewFileStream.Seek(BytePositionSwitchPower + i, soBeginning);
+      if CheckBoxControls[i].Checked then
+        ByteValue := 1
+      else
+        ByteValue := 0;
+
+      NewFileStream.Seek(BytePositionSwitchPower + 2 * (i - 1), soBeginning);
+      NewFileStream.WriteBuffer(ByteValue, SizeOf(ByteValue));
+
+      if (SpinEditControls[i].Value < 0) or (SpinEditControls[i].Value > 255) then
+        ByteValue := 0
+      else
+        ByteValue := Byte(SpinEditControls[i].Value);
+
+      NewFileStream.Seek(BytePositionSwitchPower + 2 * (i - 1) + 1, soBeginning);
       NewFileStream.WriteBuffer(ByteValue, SizeOf(ByteValue));
     end;
-  //
+    Memo1.Lines.Add(Format('Файл: %s | Новый ID: %s | Статус: Успешно', [NewFileName, NewWordText]));
   finally
     NewFileStream.Free;
   end;
+
 end;
+
 
 procedure TForm1.edtNewByteChange(Sender: TObject);
 begin
@@ -205,8 +229,23 @@ end;
 
 procedure TForm1.edtNewByteKeyPress(Sender: TObject; var Key: Char);
 begin
-  if not (Key in ['0'..'9']) then
+  if not CharInSet(Key, ['0'..'9']) then
+  begin
     Key := #0;
+  end;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+var i:Integer;
+begin
+  for i := 1 to 10 do
+  begin
+    CheckBoxControls[i] := TCheckBox(FindComponent('CheckBox' + IntToStr(i)));
+    CheckBoxControls[i].OnClick := CheckBoxClick;
+    CheckBoxControls[i].Caption := 'Выкл.';
+    SpinEditControls[i] := TSpinEdit(FindComponent('SpinEdit' + IntToStr(i)));
+  end;
+  CheckBoxActive.OnClick(self);
 end;
 
 procedure TForm1.ReadBytesFromFile(const FileName: string; BytePosition: Int64; var WordValue: Word);
@@ -227,23 +266,60 @@ var
   FileStream: TFileStream;
   i: Integer;
   ByteValue: Byte;
-  SpinEditControls: array[1..20] of TSpinEdit;
 begin
-  for i := 1 to 20 do
-    SpinEditControls[i] := TSpinEdit(FindComponent('SpinEdit' + IntToStr(i)));
-
   FileStream := TFileStream.Create(FileName, fmOpenRead);
   try
-    for i := 0 to 19 do
+    for i := 1 to 20 do
     begin
-      FileStream.Seek(StartBytePosition + i, soBeginning);
+      FileStream.Seek(StartBytePosition + (i - 1), soBeginning);
       FileStream.ReadBuffer(ByteValue, SizeOf(ByteValue));
-      SpinEditControls[i + 1].Text := IntToStr(ByteValue);
+
+      if (i mod 2) = 1 then
+      begin
+        // Нечетные CheckBox
+        if ByteValue = 0 then
+          CheckBoxControls[(i div 2) + 1].Checked := False
+        else if ByteValue = 1 then
+          CheckBoxControls[(i div 2) + 1].Checked := True
+      end
+      else
+      begin
+        // Четные SpinEdit
+        SpinEditControls[i div 2].Value := ByteValue;
+      end;
     end;
   finally
     FileStream.Free;
   end;
 end;
 
-end.
+procedure TForm1.CheckBoxActiveClick(Sender: TObject);
+var
+  i: Integer;
+begin
+ if CheckBoxActive.Checked then  CheckBoxActive.Caption:='Включено'
+  else CheckBoxActive.Caption:='Выключено';
 
+  for i := 1 to 10 do
+  begin
+    CheckBoxControls[i].Enabled := CheckBoxActive.Checked;
+    SpinEditControls[i].Enabled := CheckBoxActive.Checked;
+  end;
+
+end;
+
+procedure TForm1.CheckBoxClick(Sender: TObject);
+var
+  CheckBox: TCheckBox;
+begin
+  CheckBox := TCheckBox(Sender);
+  if CheckBox.Checked then
+    CheckBox.Caption := 'Вкл.'
+  else
+    CheckBox.Caption := 'Выкл.';
+end;
+
+
+
+
+end.

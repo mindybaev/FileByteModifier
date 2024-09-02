@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.091,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\byteChage.dproj=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.398,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\uFileByteModifier.dfm=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\Unit1.dfm=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.398,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\uFileByteModifier.pas=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.794,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\byteChange.dproj=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\byteChage.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.913,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\FileByteModifier.dproj=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\byteChange.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\Unit1.pas=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.091,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\byteChage.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.794,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\byteChage.dproj=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\byteChange.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.398,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\Unit1.dfm=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\uFileByteModifier.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.913,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\byteChange.dproj=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\FileByteModifier.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.398,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\Unit1.pas=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\uFileByteModifier.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Максим\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\byteChange\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.250,=C:\Users\Максим\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
