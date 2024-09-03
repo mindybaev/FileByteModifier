@@ -93,6 +93,7 @@ end;
 procedure TForm1.btnCreateFilesInRangeClick(Sender: TObject);
 var
   StartID, EndID: Integer;
+  LogMessage: String;
 begin
   if SelectedFileName = '' then
   begin
